@@ -4,6 +4,7 @@ class Player { // player constorctor
         this.hand = [];
         this.ponts = 0;
     }
+
 } 
 
 class Card { // card constructor 
@@ -12,6 +13,14 @@ class Card { // card constructor
         this.rank = rank;
         this.point = point ;
 
+    }
+
+    getPoint (){
+        return this.point;
+    }
+
+    getCard(){
+        return this.suits +":" + this.rank;
     }
 }
 
@@ -24,11 +33,12 @@ class Deck {
 
     createDeck(){
         let suits = ['Clubs','Diamonds','Hearts','Spades'];
-        let ranks = ['Ace','2','3','4','5','6','7','8','9','10','Jack','Queen','King'];
+        let ranks = ['2','3','4','5','6','7','8','9','10','Jack','Queen','King','Ace'];
+      let point = [2,3,4,5,6,7,8,9,10,11,12,13,14];
 
-        for (let i = 0; i <  4; i++) {
+        for (let i = 0; i <  suits.length; i++) {
             for (let j = 0; j < ranks.length ;j++) {
-                this.deck.push(new Card(suits[i],ranks[i],i + 1)); // add card to deck 
+                this.deck.push(new Card(suits[i],ranks[j],point[j])); // add card to deck 
             }
             
         }
@@ -62,56 +72,32 @@ class WarBoard {
         gameDeck.createDeck();
         gameDeck.shuffle()
 
-        for (let i = 0; i < 26; i++) {
+        for (let i = 0; i < 26; i++) { // adds to player hands
             p1.hand.push(gameDeck.deck.pop());
             p2.hand.push(gameDeck.deck.pop());
             
             
         }
 
-        console.log(p1);
-        console.log(p2);
+
+
+
+
+        if (p1.hand[0].getPoint() > p2.hand[0].getPoint()){
+            console.log(p1.hand[0].getCard() + " > " + p2.hand[0].getCard());
+
+
+        } else if(p1.hand[0].getPoint() < p2.hand[0].getPoint()) {
+            console.log(p1.hand[0].getCard() + " < " + p2.hand[0].getCard());
+        } else {
+            console.log(p1.hand[0].getCard() + " === " + p2.hand[0].getCard())
+        }
     }
 
 }
 
-
+let deck = new Deck();
+console.log(deck.deck)
 let war = new WarBoard();
 
 war.beginWar();
-
-// let playerOne = new Player("Oscar");
-// let playerTwo = new Player("Bot");
-
-// let deckOfCards = new Deck();
-// deckOfCards.createDeck();
-// deckOfCards.shuffle();
-
-// console.log(deckOfCards.deck)
-//  // get points
-
-//  for (let i = 0; i < 26; i++) {
-//     playerOne.hand.push(deckOfCards.deck.pop());
-//     playerTwo.hand.push(deckOfCards.deck.pop());
-    
-//  }
-
-
-
-
-// console.log(deckOfCards.deck.length)
-//  console.log(playerOne);
-//  console.log(playerTwo);
-
-//  for (let i = 0; i < playerOne.hand.length; i++) {
-
-//     if(playerOne.hand[i].getPoint() > playerTwo.hand[i].getPoint()){
-
-//         playerOne.hand.push(playerTwo.hand[i])
-
-
-        
-//     }
-
-    
-//  }
