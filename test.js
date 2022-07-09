@@ -9,4 +9,16 @@ for (let i = deck.length - 1; i > 0; i--) {
 }
 
 
+
+
 console.log(deck)
+
+let face = faceDown(0,deck);
+console.log(face);
+console.log(deck)
+
+
+function faceDown (index,arr){
+    return arr.splice(index,1);
+}
+

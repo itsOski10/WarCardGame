@@ -1,13 +1,13 @@
-class Player { // player constorctor 
+class Player { // player Class 
     constructor(player){
         this.player = player;
         this.hand = [];
         this.ponts = 0;
-    }
+    }  
 
 } 
 
-class Card { // card constructor 
+class Card { // Card Class
     constructor (suits,rank,point) {
         this.suits = suits;
         this.rank = rank;
@@ -15,11 +15,12 @@ class Card { // card constructor
 
     }
 
-    getPoint (){
+    getPoint (){ // Returns points
         return this.point;
     }
 
-    getCard(){
+    getCard(){ // Returns a card Suits And its Rank
+
         return this.suits +":" + this.rank;
     }
 }
@@ -38,7 +39,7 @@ class Deck {
 
         for (let i = 0; i <  suits.length; i++) {
             for (let j = 0; j < ranks.length ;j++) {
-                this.deck.push(new Card(suits[i],ranks[j],point[j])); // add card to deck 
+                this.deck.push(new Card(suits[i],ranks[j],point[j])); // Creates and Pushes cards to Deck 
             }
             
         }
@@ -49,55 +50,64 @@ class Deck {
     
 
     shuffle() {
-        for (let i = this.deck.length - 1; i > 0; i--) {
+        for (let i = this.deck.length - 1; i > 0; i--) { // Method that Shuffels the Deck 
             let j = Math.floor(Math.random() * (i+1));
             let temp = this.deck[i];
             this.deck[i] = this.deck[j];
             this.deck[j] = temp;
         } 
     }
+    
 }
 
 
-class WarBoard {
+class WarBoard { 
     constructor(){
     }
-
-
-
     beginWar(){
         let p1 = new Player("Oscar");
         let p2 = new Player("Bot");
+
         let gameDeck = new Deck();
         gameDeck.createDeck();
         gameDeck.shuffle()
 
-        for (let i = 0; i < 26; i++) { // adds to player hands
+        for (let i = 0; i < 26; i++) { // adds deck  to players hands
             p1.hand.push(gameDeck.deck.pop());
-            p2.hand.push(gameDeck.deck.pop());
-            
+            p2.hand.push(gameDeck.deck.pop()); 
             
         }
 
+        // can make to a method - 
 
-
-
-
-        if (p1.hand[0].getPoint() > p2.hand[0].getPoint()){
-            console.log(p1.hand[0].getCard() + " > " + p2.hand[0].getCard());
-
-
-        } else if(p1.hand[0].getPoint() < p2.hand[0].getPoint()) {
-            console.log(p1.hand[0].getCard() + " < " + p2.hand[0].getCard());
+        
+        for (let i = 0; i < 26; i++) { // loops 26 times b/c of both Player One and Two have a hand size of 26
+        if (p1.hand[i].getPoint() > p2.hand[i].getPoint()){ // comapres the card point Value
+            console.log(p1.hand[i].getCard() + " > " + p2.hand[i].getCard()); 
+            p1.ponts++;
+        } else if(p1.hand[i].getPoint() < p2.hand[i].getPoint()) {
+            console.log(p1.hand[i].getCard() + " < " + p2.hand[i].getCard());
+            p2.ponts++;
         } else {
-            console.log(p1.hand[0].getCard() + " === " + p2.hand[0].getCard())
+            console.log(p1.hand[i].getCard() + " === " + p2.hand[i].getCard())
         }
+  
+        }
+
+/**
+ * Displayes the winner using the game logic
+ */
+        if (p1.ponts > p2.ponts) {
+            alert(p1.player + " is the Winner!!!!! with " + p1.ponts + " points");
+        } else if(p1.ponts < p2.ponts) {
+            alert(p2.player + " is the Winner!!!!! with " + p2.ponts + " points");  
+        } else{
+            alert(p1.player + " and " + p2.player + " Tied!!!!! with both players reciving " + p1.ponts);
+        }
+
     }
 
 }
 
-let deck = new Deck();
-console.log(deck.deck)
-let war = new WarBoard();
-
-war.beginWar();
+let war = new WarBoard(); // creates a board 
+war.beginWar(); // starts the War
