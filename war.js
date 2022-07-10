@@ -1,3 +1,22 @@
+/**
+ * Name: Oscar Ramirez
+ * Date: 07/09/2022
+ * 
+ * 
+ * Decription: An automated version of the classic card game WAR. 
+ * RUles of Game:
+ * -	Deal 26 Cards to two Players from a Deck. 
+ * -	Iterate through the turns where each Player plays a Card
+ * -	The Player who played the higher card is awarded a point
+ *          o	Ties result in zero points for either Player
+ * -	After all cards have been played, display the score.
+ * 
+ * 
+ */
+
+
+
+
 class Player { // player Class 
     constructor(player){
         this.player = player;
@@ -15,7 +34,7 @@ class Card { // Card Class
 
     }
 
-    getPoint (){ // Returns points
+    getPoint (){ // Returns card point Value
         return this.point;
     }
 
@@ -32,7 +51,7 @@ class Deck {
 
     }
 
-    createDeck(){
+    createDeck(){ // method for creating deck
         let suits = ['Clubs','Diamonds','Hearts','Spades'];
         let ranks = ['2','3','4','5','6','7','8','9','10','Jack','Queen','King','Ace'];
       let point = [2,3,4,5,6,7,8,9,10,11,12,13,14];
@@ -72,13 +91,12 @@ class WarBoard {
         gameDeck.createDeck();
         gameDeck.shuffle()
 
-        for (let i = 0; i < 26; i++) { // adds deck  to players hands
+        for (let i = 0; i < 26; i++) { // adds deck to players hands
             p1.hand.push(gameDeck.deck.pop());
             p2.hand.push(gameDeck.deck.pop()); 
             
         }
 
-        // can make to a method - 
 
         
         for (let i = 0; i < 26; i++) { // loops 26 times b/c of both Player One and Two have a hand size of 26
@@ -95,10 +113,10 @@ class WarBoard {
         }
 
 /**
- * Displayes the winner using the game logic
+ * Displayes the winner
  */
         if (p1.ponts > p2.ponts) {
-            alert(p1.player + " is the Winner!!!!! with " + p1.ponts + " points");
+           alert(p1.player + " is the Winner!!!!! with " + p1.ponts + " points");
         } else if(p1.ponts < p2.ponts) {
             alert(p2.player + " is the Winner!!!!! with " + p2.ponts + " points");  
         } else{
